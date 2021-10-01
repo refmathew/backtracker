@@ -1,0 +1,76 @@
+@use "variables/fonts";
+@use "variables/colors" as c;
+@use "variables/mixins" as m;
+@use "variables/functions";
+
+
+.landing-page-body{
+    width: 100%;
+    height: 100vh;
+
+
+    .landing-page-wrapper{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+        max-width: 144rem;
+        height: 100%;
+        max-height: 104.8rem;
+        margin: auto;
+        @include m.cpa(32, 40);
+
+        .login-link{
+            position: absolute;
+            top: 0;
+            right: 0;
+            @include m.cma(32, 40);
+            @include m.cf(16, 17);
+        }
+
+        .header{
+            color: c.$raisinBlack;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            &__image{
+                height: 5rem;
+            }
+
+            &__definition{
+                margin-top: 2rem;
+                @include m.cf(24, 28);
+                text-align: center;
+
+                span{
+                    @include m.cf(24, 28);
+                    display: block;
+                    color: c.$mediumSeaGreen;
+                }
+            }
+        }
+
+        .form-wrapper{
+            // flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .form{
+                display: flex;
+                flex-direction: column;
+
+                &__label{
+                    display: block;
+                    margin-top: 1.2rem;
+                }
+
+                &__input{
+                    margin-top: .2rem;
+                }
+            }
+        }
+    }
+}
