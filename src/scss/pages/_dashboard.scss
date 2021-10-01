@@ -32,12 +32,17 @@
             
             @include m.for-size(tablet){
                 flex-direction: column;
-                width: 16.7rem;
+                width: 17rem;
                 height: 100vh;
             }
 
             &__logo{
                 cursor: pointer;
+
+                @include m.for-size(tablet){
+                    height: 3rem;
+
+                }
             }
 
             &__avatar{
@@ -63,12 +68,12 @@
                     display: flex;
                     @include m.cw(36, 43);
                     @include m.ch(36, 43);
-                    background-color: c.$tequila;
+                    background-color: c.$yellowGreenCrayola;
                     border-radius: 50%;
                     color: c.$white;
 
                     &--active{
-                        background-color: c.$flushOrange;
+                        background-color: c.$fernGreen;
                     }
 
                     &:not(:last-child){
@@ -78,6 +83,7 @@
                     .fa-solid{
                         margin: auto;
                         font-size: 1.5rem;
+                        color: c.$white;
                     }
 
                     &__insert{
@@ -114,7 +120,7 @@
                     display: inline-block;
                     @include m.cw(36, 43);
                     @include m.ch(36, 43);
-                    color: c.$tequila;
+                    color: c.$yellowGreenCrayola;
                 }
 
                 svg{
@@ -133,7 +139,7 @@
                 width: 100%;
                 margin-top: 0;
                 @include m.cpa(32, 40);
-                background-color: c.$tequila;
+                background-color: c.$yellowGreenCrayola;
             }
 
             &__nav{
@@ -145,7 +151,7 @@
                     justify-content: space-between;
                     align-items: center;
                     @include m.cp(bottom, 32, 40);
-                    color: c.$jon;
+                    color: c.$raisinBlack;
                 }
 
                 &__header{
@@ -167,6 +173,7 @@
 
                     &__name{
                         display: none;
+                        color: c.$onyx;
 
                         @include m.for-size(tablet){
                             display: inline-block;
@@ -175,7 +182,7 @@
 
                             i{
                                 font-size: 1.7rem;
-                                color: c.$cinereous;
+                                color: c.$onyx;
                             }
                         }
 
@@ -222,7 +229,7 @@
                     width: 100%;
                     @include m.cp(left, 32, 40);
                     @include m.cf(24, 36);
-                    color: c.$jon;
+                    color: c.$raisinBlack;
                     margin-bottom: 4.6rem;
 
                     @include m.for-size(tablet){
@@ -265,7 +272,7 @@
                 @include m.ch(50, 60);
                 margin-top: 0;
                 @include m.cm(left, 8, 9.6);
-                background-color: c.$flushOrange;
+                background-color: c.$fernGreen;
                 border-radius: 50%;
 
                 &--active{
@@ -275,7 +282,7 @@
                 &__ellipsis{
                     font-size: 2.2rem;
                     line-height: 40%;
-                    color: c.$white;
+                    color: c.$lavenderWeb;
                 }
             }
 
@@ -292,10 +299,10 @@
                     display: flex;
                     @include m.cw(36, 43);
                     @include m.ch(36, 43);
-                    background-color: c.$flushOrange;
+                    background-color: c.$fernGreen;
                     border-radius: 50%;
                     box-shadow: 0 .4rem .4rem rgba(0, 0, 0, .25);
-                    color: c.$white;
+                    color: c.$lavenderWeb;
                     
                     &:not(:last-child){
                         @include m.cm(left, 6, 7.2);
@@ -304,6 +311,7 @@
                     .fa-solid{
                         margin: auto;
                         font-size: 1.5rem;
+                        color: c.$lavenderWeb;
                     }
 
                     &__insert{
@@ -363,11 +371,11 @@
             }
 
             &__logout{
-                color: c.$flushOrange;
+                color: c.$fernGreen;
                 text-decoration: none;
 
                 &:hover{
-                    color: c.$darkRed;
+                    color: c.$rubyRed;
                 }
             }
         }

@@ -1,32 +1,29 @@
 <?php
-session_start();
 
 if (isset($_POST["insert"])){
 
   date_default_timezone_set('Asia/Manila');
-  $user_registration_date = date('d-m-y H:i:s');
-  $user_name = $_POST["user_name"];
-  $user_password = $_POST["user_password"];
-  $user_isAdmin = $_POST["user_isAdmin"];
+  $name = $_POST['name'];
+  $address = $_POST["address"];
+  $contact = $_POST["contact"];
+  $body_temp = $_POST["body_temp"];
+  $date_entered = date('Y-m-d');
+  $time_entered = date('H:i:s');
+  $date_encoded = date('Y-m-d');
 
   require_once "functions.inc.php";
   require_once "db.inc.php";
 
-  if (incompleteCredentials($user_name, $user_password) !== false){
-    header("location: ../dashboard.php?error=incomplete_credentials");
+  if (incompleteInfo($name, $address, $contact, $body_temp) !== false){
+    header("location: ../dashboard.php?error=incomplete_info");
     exit();
   }
 
-  if (usernameExists($conn, $user_name)){
-    header("location: ../dashboard.php?error=username_already_exists");
+  if ( insertInfo($conn, $name, $address, $contact, $body_temp, $date_entered, $time_entered, $date_encoded) !== false){
+    header("location: ../dashboard.php?insert_info=success");
     exit();
-  } else{
-    if ( insertRecord($conn, $user_name, $user_password, $user_isAdmin, $user_registration_date) !== false){
-      header("location: ../dashboard.php?insert_record=success");
-      exit();
-    } else {
-      header("location: ../dashboard.php?insert_record=failed");
-      exit();
-    }
+  } else {
+    header("location: ../dashboard.php?insert_info=failed");
+    exit();
   }
 }

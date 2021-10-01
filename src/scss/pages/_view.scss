@@ -32,16 +32,16 @@
             }
             tr:nth-of-type(even){
                 background-color: c.$white;
-                color: c.$flushOrange;
+                color: c.$fernGreen;
             }
 
             tr:nth-of-type(odd){
-                background-color: c.$serenade;
-                color: c.$jon;
+                background-color: c.$mediumSeaGreen;
+                color: c.$white;
             }
 
             tr:first-child{
-                background-color: c.$flushOrange;
+                background-color: c.$fernGreen;
                 color: c.$white;
             }
 

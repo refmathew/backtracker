@@ -9,15 +9,15 @@
 </head>
 <body class="login-body">
   <header class="header">
-    <img class="header__image"src="../../src/assets/brand_logo_and_name_stacked.svg" />
+    <img class="header__image" src="../../src/assets/brand_logo_and_name.svg" />
     <h2 class="header__definition">
-      Enter and plunge into the exciting world of computer science.
+      Track your visitors with the help of <span>backtracker</span>
     </h2>
   </header>
   <section class="login-section" >
     <form class="login-section__form" action="include/login.inc.php" method="POST">
-      <input class="login-section__form__username" type="text" name="user_name" placeholder="Username..." />
-      <input class="login-section__form__password" type="password" name="user_password" placeholder="Password..." />
+      <input class="login-section__form__username" type="text" name="name" placeholder="Name..." />
+      <input class="login-section__form__password" type="password" name="pwd" placeholder="Password..." />
       <button class="login-section__form__login-button" type="submit" name="login">
         Log in
       </button>

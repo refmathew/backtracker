@@ -2,7 +2,7 @@
  $servername = "localhost";  
  $username = "root";                  
  $password = "";                      
- $database = "authentication";                      
+ $database = "tracker";                      
                                        
  $conn = new mysqli($servername, $username, $password, $database);
 

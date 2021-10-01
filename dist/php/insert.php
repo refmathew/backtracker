@@ -3,13 +3,10 @@ echo '
   <div class="main__page__insert-page main__page__page">
     <h2 class="main__page__header main__page__insert-page__header">Insert Record</h2>
     <form class="main__page__form main__page__insert-page__form" action="include/insert.inc.php" method="POST">
-      <input class="main__page__insert-page__form__username" type="text" name="user_name" placeholder="Username..." />
-      <input class="main__page__insert-page__form__password" type="password" name="user_password" placeholder="Password..." />
-      <div class="main__page__insert-page__form__admin">
-          <input type="hidden" value="0" name="user_isAdmin" />
-          <input class="main__page__insert-page__form__admin__checkbox" type="checkbox" value="1" name="user_isAdmin" id="user_isAdmin"  />
-          <label for="user_isAdmin" class="main__page__insert-page__form__admin__label">Admin</label>
-      </div>
+      <input class="main__page__insert-page__form__name" type="text" name="name" placeholder="Name..." />
+      <input class="main__page__insert-page__form__address" type="text" name="address" placeholder="Address..." />
+      <input class="main__page__insert-page__form__contact" type="text" name="contact" placeholder="Contact..." />
+      <input class="main__page__insert-page__form__body-temp" type="text" name="body_temp" placeholder="Body Temperature..." />
       <button class="login-section__form__login-button" type="submit" name="insert">
         Insert
       </button>

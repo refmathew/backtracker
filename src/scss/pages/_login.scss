@@ -24,17 +24,22 @@
         align-items: center;
 
         &__image{
-            @include m.cw(67, 134);
-            @include m.ch(110, 220);
+            @include m.ch(70, 90);
             @include m.cm(bottom, 23, 30);
         }
 
         &__definition{
             @include m.cw(265, 470);
             @include m.cf(20, 28);
-            font-family: "Varela Round", sans-serif;
-            color: c.$cinereous;
+            font-family: "Nunito", sans-serif;
+            color: c.$mediumSeaGreen;
             text-align: center;
+
+            span{
+                color: c.$britishRacingGreen;
+                @include m.cf(20, 28);
+                font-family: "Nunito", sans-serif;
+            }
         }
     }
 
@@ -48,21 +53,6 @@
             flex-direction: column;
             align-items: center;
 
-            input{
-                @include m.cw(265, 470);
-                @include m.ch(43, 51);
-                margin-top: 1.2rem;
-                @include m.cp(left, 12, 24);
-                border: .2rem solid c.$platinum;
-                border-radius: .8rem;
-                @include m.cf(16, 17);
-                color: c.$xiketic;
-                
-                &::placeholder{
-                    color: c.$cinereous;
-                }
-            }
-
             button{
                 margin-top: 1.2rem;
             }
@@ -72,4 +62,3 @@
         }
     }
 }
-

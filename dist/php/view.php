@@ -6,11 +6,14 @@ echo '
     <table class="main__page__view-page__table-wrapper__table">
       <tr>
         <th>Id</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Admin</th>
-        <th>Deleted</th>
-        <th>Registration Date</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Contact</th>
+        <th>Body Temperature</th>
+        <th>Date Entered</th>
+        <th>Time Entered</th>
+        <th>Remark</th>
+        <th>Date Encoded</th>
       </tr> 
 '
 ?>

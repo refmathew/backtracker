@@ -18,7 +18,7 @@ session_start();
   require_once 'db.inc.php';
   require_once 'functions.inc.php';
 
-  $q = $_GET['q'];
+  $q = $_POST['q'];
 
   echo "
     <div class='main__page__insert-page main__page__page'>
@@ -43,17 +43,19 @@ session_start();
   /* For updating */
   if (isset($_POST["modify"])){
 
-    $user_id = $_POST['user_id'];
-    $user_name = $_POST['user_name'];
-    $user_password = $_POST['user_password'];
-    $user_isAdmin = $_POST['user_isAdmin'];
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $address = $_POST['address'];
+    $contact = $_POST['contact'];
+    $body_temp = $_POST['body_temp'];
+    $remark = $_POST['remark'];
 
-    if (incompleteCredentials($user_name, $user_password) !== false){
+    if (incompleteInfoModify($id, $name, $address, $contact, $body_temp) !== false){
       header("location: modify.inc.php?error=incomplete_credentials");
       exit();
     }
 
-    $updateStatus = updateRecord($conn, $user_name, $user_password, $user_isAdmin, $user_id);
+    $updateStatus = updateRecord($conn, $name, $address, $contact, $body_temp, $remark, $id);
 
     if ( $updateStatus !== true){
       header("location: ../dashboard.php?update_record=failed");

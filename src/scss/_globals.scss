@@ -8,14 +8,15 @@
     padding: 0;
     box-sizing: border-box;
     font-size: 10px;
-    font-family: "Varela Round", sans-serif;
+    font-family: "Nunito", sans-serif;
+    // color: c.$raisinBlack;
 }
 
 button{
     @include m.cw(265, 470);
     @include m.ch(43, 51);
     margin-top: 1.2rem;
-    background-color: c.$flushOrange;
+    background-color: c.$fernGreen;
     border: none;
     border-radius: .8rem;
     @include m.cf(16, 20);
@@ -28,7 +29,7 @@ input[type="text"], input[type="password"], input[type="search"]{
     @include m.ch(43, 51);
     margin-top: 1.2rem;
     @include m.cp(left, 12, 24);
-    border: .2rem solid c.$tequila;
+    border: .2rem solid c.$mediumSeaGreen;
     border-radius: .8rem;
     @include m.cf(16, 17);
     color: c.$xiketic;
@@ -41,14 +42,22 @@ input[type="text"], input[type="password"], input[type="search"]{
     }
 }
 
+label{
+    @include m.cf(18, 20);
+    color: c.$onyx;
+    font-weight: 600;
+}
+
 a{
     cursor: pointer;
+    // text-decoration: none;
+    color: c.$fernGreen;
 }
 
 .error-message{
     margin-top: 1.2rem;
     @include m.cf(16, 17);
-    color: c.$darkRed;
+    color: c.$rubyRed;
 }
 
 .success-message{

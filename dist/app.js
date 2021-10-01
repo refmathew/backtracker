@@ -185,30 +185,36 @@ insertProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	insertPage.classList.add("main__page__page--active");
+	mainHeaderNav.innerText = "Insert Record";
 });
 searchProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	searchPage.classList.add("main__page__page--active");
+	mainHeaderNav.innerText = "Search Record";
 });
 viewProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	viewPage.classList.add("main__page__page--active");
 	controlMenu.classList.add("control-menu--sticky");
+	mainHeaderNav.innerText = "View Records";
 });
 modifyProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	modifyPage.classList.add("main__page__page--active");
+	mainHeaderNav.innerText = "Modify Record";
 });
 removeProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	removePage.classList.add("main__page__page--active");
+	mainHeaderNav.innerText = "Remove Record";
 });
 recoverProfileMenu.addEventListener("click", () => {
 	disabler();
 	profileMenu.classList.remove("profile-menu--active");
 	recoverPage.classList.add("main__page__page--active");
+	mainHeaderNav.innerText = "Recover Record";
 });

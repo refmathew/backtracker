@@ -1,2 +1,2 @@
 <?php
-  header("Location: ./dist/php/login.php");
+  header("Location: ./dist/php/landing_page.php");

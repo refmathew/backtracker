@@ -16,7 +16,7 @@ session_start();
   <div class="dashboard-wrapper">
     <nav class="nav">
       <a href="../../main.php">
-        <img class="nav__logo"  src="../../src/assets/brand_logo_and_name.svg"/>
+        <img class="nav__logo" src="../../src/assets/brand_logo_and_name.svg" />
       </a>
       <a class="nav__avatar" >
         <?php
@@ -54,7 +54,7 @@ session_start();
           <div class="main__nav__avatar__name">
             <i class="fas fa-chevron-down"></i>
             <?php
-              echo $_SESSION['user_name'];
+              echo $_SESSION['name'];
             ?>
           </div>
           <?php

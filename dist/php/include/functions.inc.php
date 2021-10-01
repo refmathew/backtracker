@@ -1,8 +1,8 @@
 <?php
-function incompleteCredentials($user_name, $user_password){
+function incompleteCredentials($name, $pwd){
   $result = "";
 
-  if (empty($user_name) || empty($user_password)){
+  if (empty($name) || empty($pwd)){
     $result = true;
   } else{
     $result = false;
@@ -11,30 +11,53 @@ function incompleteCredentials($user_name, $user_password){
   return $result;
 }
 
-function userExists ($conn, $user_name, $user_password) {
-  $sql = "SELECT * FROM user_account WHERE user_name = ?;";
+function incompleteInfo($name, $address, $contact, $body_temp){
+  $result = "";
+
+  if (empty($name) || empty($address) || empty($contact) || empty($body_temp)){
+    $result = true;
+  } else{
+    $result = false;
+  }
+
+  return $result;
+}
+
+function incompleteInfoModify($id, $name, $address, $contact, $body_temp){
+  $result = "";
+
+  if (empty($id) || empty($name) || empty($address) || empty($contact) || empty($body_temp)){
+    $result = true;
+  } else{
+    $result = false;
+  }
+
+  return $result;
+}
+
+function userExists ($conn, $name, $pwd) {
+  $sql = "SELECT * FROM administrators WHERE name = ?;";
 
   $result = array();
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("s", $user_name); 
+  $stmt->bind_param("s", $name); 
   $stmt->execute(); 
   $sqlData = mysqli_stmt_get_result($stmt);
 
   if ($row = mysqli_fetch_assoc($sqlData)) {
 
-    $checkPwd = password_verify( $user_password, $row['user_password'] );
+    /* $checkPwd = password_verify( $pwd, $row['pwd'] ); */
 
-    if ( $user_name === $row['user_name'] && $checkPwd === true ){
+    /* if ( $name === $row['name'] && $checkPwd === true ){ */
+    if ( $name === $row['name'] ){
+
       /* check if a user exists */
       $result[0] = true;
 
       /* return the user's data */
-      $result[1] = $row['user_id'];
-      $result[2] = $row['user_name'];
-      $result[3] = $row['user_password'];
-      $result[4] = $row['user_isAdmin'];
-      $result[5] = $row['user_isDeleted'];
-      $result[6] = $row['user_registration_date'];
+      $result[1] = $row['id'];
+      $result[2] = $row['name'];
+      $result[3] = $row['pwd'];
     } else {
       $result[0] = false;
     }
@@ -69,6 +92,26 @@ function usernameExists ($conn, $user_name) {
   $conn->close;
 }
 
+function insertInfo($conn, $name, $address, $contact, $body_temp, $date_entered, $time_entered, $date_encoded){
+  $remark = "";
+
+  $sql = "INSERT INTO visitor_details (name, address, contact, body_temp, date_entered, time_entered, remark, date_encoded) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+  $insertionSuccess = "";
+  $stmt = $conn->prepare($sql);
+  $stmt->bind_param("sssissss", $name, $address, $contact, $body_temp, $date_entered, $time_entered, $remark, $date_encoded);
+
+  if ($stmt->execute() === true){
+    $insertionSuccess = true;
+  } else{
+    $insertionSuccess = false;
+  }
+
+  return $insertionSuccess;
+
+  $stmt->close;
+  $conn->close;
+}
+
 function insertRecord($conn, $user_name, $user_password, $user_isAdmin, $user_registration_date){
   $sql = "INSERT INTO user_account (user_name, user_password, user_isAdmin, user_registration_date) VALUES (?, ?, ?, ?);";
 
@@ -90,26 +133,32 @@ function insertRecord($conn, $user_name, $user_password, $user_isAdmin, $user_re
 }
 
 function showRecord($conn){
-  $sql = "SELECT * FROM user_account";
+  $sql = "SELECT * FROM visitor_details";
 
   if ( $result = $conn->query($sql) ){
     while($row = $result->fetch_assoc()){
-      $user_id = $row["user_id"];
-      $user_name = $row["user_name"];
-      $user_password = $row["user_password"];
-      $user_isAdmin = $row["user_isAdmin"];
-      $user_isDeleted = $row["user_isDeleted"];
-      $user_registration_date = $row["user_registration_date"];
+      $id = $row['id'];
+      $name = $row['name'];
+      $address = $row['address'];
+      $contact = $row['contact'];
+      $body_temp = $row['body_temp'];
+      $date_entered = $row['date_entered'];
+      $time_entered = $row['time_entered'];
+      $remark = $row['remark'];
+      $date_encoded = $row['date_encoded'];
 
-      if ($user_isDeleted == 0){
+      if ($remark != "deleted"){
         echo "
         <tr>
-          <td>$user_id</td>
-          <td>$user_name</td>
-          <td>$user_password</td>
-          <td>$user_isAdmin</td>
-          <td>$user_isDeleted</td>
-          <td>$user_registration_date</td>
+          <td>$id</td>
+          <td>$name</td>
+          <td>$address</td>
+          <td>$contact</td>
+          <td>$body_temp</td>
+          <td>$date_entered</td>
+          <td>$time_entered</td>
+          <td>$remark</td>
+          <td>$date_encoded</td>
         </tr> 
     ";
       }
@@ -119,7 +168,7 @@ function showRecord($conn){
 
 
 function searchRecord($conn, $q, $for){
-  $sql = "SELECT * FROM user_account WHERE user_name = ?";
+  $sql = "SELECT * FROM visitor_details WHERE name = ?";
 
   $stmt = $conn->prepare($sql);
   $stmt->bind_param("s", $q);
@@ -128,33 +177,40 @@ function searchRecord($conn, $q, $for){
   $sqlData = mysqli_stmt_get_result($stmt);
   $result = mysqli_fetch_assoc($sqlData);
 
-  $user_id = $result['user_id'];
-  $user_name = $result['user_name'];
-  $user_password = $result['user_password'];
-  $user_isAdmin = $result['user_isAdmin'];
+  $id = $result['id'];
+  $name = $result['name'];
+  $address = $result['address'];
+  $contact = $result['contact'];
+  $body_temp = $result['body_temp'];
+  $date_entered = $result['date_entered'];
+  $time_entered = $result['time_entered'];
+  $remark = $result['remark'];
+  $date_encoded = $result['date_encoded'];
 
   if ($for === "search"){
-    if ($result['user_isDeleted'] === 0){
+    if ($remark != "deleted"){
       echo "
-          <p><span>Id: </span>{$result['user_id']}</p>
-          <p><span>Username: </span>{$result['user_name']}</p>
-          <p><span>Password: </span>{$result['user_password']}</p>
-          <p><span>Admin: </span>{$result['user_isAdmin']}</p>
-          <p><span>Date registered: </span>{$result['user_registration_date']}</p>
+          <p><span>Id: </span>{$id}</p>
+          <p><span>Name: </span>{$name}</p>
+          <p><span>Address: </span>{$address}</p>
+          <p><span>Contact: </span>{$contact}</p>
+          <p><span>Body temperature: </span>{$body_temp}℃</p>
+          <p><span>Date entered: </span>{$date_entered}</p>
+          <p><span>Time entered: </span>{$time_entered}</p>
+          <p><span>Remark: </span>{$remark}</p>
+          <p><span>Date encoded: </span>{$date_encoded}</p>
         ";
     } else{
       header("location: ../dashboard.php?search_error=user_notfound");
     }
   } elseif($for === "modify"){
     echo "
-          <input type='hidden' value='{$user_id}' name='user_id' />
-          <input class='main__page__modify-inc-page__form__username' type='text' value='{$user_name}' name='user_name' placeholder='Username...' />
-          <input class='main__page__modify-inc-page__form__password' type='password' value='{$user_password}' name='user_password' placeholder='Password...' />
-          <div class='main__page__modify-inc-page__form__admin'>
-              <input type='hidden' name='user_isAdmin' value='0' />
-              <input class='main__page__modify-inc-page__form__admin__checkbox' type='checkbox' name='user_isAdmin' id='user_isAdmin' value='{$user_isAdmin}' />
-              <label for='user_isAdmin' class='main__page__modify-inc-page__form__admin__label'>Admin</label>
-          </div>
+          <input type='hidden' value='{$id}' name='id' />
+          <input class='main__page__modify-inc-page__form__name' type='text' value='{$name}' name='name' placeholder='Name...' />
+          <input class='main__page__modify-inc-page__form__address' type='text' value='{$address}' name='address' placeholder='Address...' />
+          <input class='main__page__modify-inc-page__form__contact' type='text' value='{$contact}' name='contact' placeholder='Contact...' />
+          <input class='main__page__modify-inc-page__form__body-temp' type='text' value='{$body_temp}' name='body_temp' placeholder='Body Temperature...' />
+          <input class='main__page__modify-inc-page__form__remark' type='text' value='{$remark}' name='remark' placeholder='Remark...' />
           <button class='login-section__form__login-button' type='submit' name='modify'>
             Modify
           </button>
@@ -180,19 +236,12 @@ function passwordSame($conn, $user_id, $user_password){
   $conn->close();
 }
 
-function updateRecord($conn, $user_name, $user_password, $user_isAdmin, $user_id){
-  $sql = "UPDATE user_account SET user_name = ?, user_password = ?, user_isAdmin = ? WHERE user_id = ?;";
-
-  $processed_user_password = "";
-  if (passwordSame($conn, $user_id, $user_password !== false)){
-    $processed_user_password = $user_password;
-  } else{
-    $processed_user_password = password_hash($user_password, PASSWORD_DEFAULT); 
-  }
+function updateRecord($conn, $name, $address, $contact, $body_temp, $remark, $id){
+  $sql = "UPDATE visitor_details SET name = ?, address = ?, contact = ?, body_temp = ?, remark = ? WHERE id = ?;";
 
   $updateSuccess = "";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("ssii", $user_name, $processed_user_password, $user_isAdmin, $user_id);
+  $stmt->bind_param("sssisi", $name, $address, $contact, $body_temp, $remark, $id);
   if ($stmt->execute() === true){
     $updateSuccess = true;
   } else{
@@ -206,11 +255,11 @@ function updateRecord($conn, $user_name, $user_password, $user_isAdmin, $user_id
 }
 
 function removeRecord($conn, $q){
-  $user_isDeleted = 1;
-  $sql = "UPDATE user_account SET user_isDeleted = ? WHERE user_name = ?;";
+  $remark = "deleted";
+  $sql = "UPDATE visitor_details SET remark = ? WHERE name = ?;";
 
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("is", $user_isDeleted, $q);
+  $stmt->bind_param("ss", $remark, $q);
   $stmt->execute();
 
   $removalSuccess = "";
@@ -224,11 +273,11 @@ function removeRecord($conn, $q){
 }
 
 function recoverRecord($conn, $q){
-  $user_isDeleted = 0;
-  $sql = "UPDATE user_account SET user_isDeleted = ? WHERE user_name = ?;";
+  $remark = "";
+  $sql = "UPDATE visitor_details SET remark = ? WHERE name = ?;";
 
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("is", $user_isDeleted, $q);
+  $stmt->bind_param("ss", $remark, $q);
   $stmt->execute();
 
   $removalSuccess = "";
